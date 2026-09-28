@@ -15,7 +15,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .config import settings
-from .routers import items, users, payments
+from .routers import items, users, payments, location_templates
 from .audit.logger import audit_logger
 
 app = FastAPI(title="Estate Inventory API", version=settings.app_version)
@@ -33,6 +33,7 @@ app.add_middleware(
 app.include_router(items.router, prefix="/api/v1/items", tags=["items"])
 app.include_router(users.router, prefix="/api/v1/users", tags=["users"])
 app.include_router(payments.router, prefix="/api/v1/payments", tags=["payments"])
+app.include_router(location_templates.router, prefix="/api/v1/location-templates", tags=["location-templates"])
 
 # Simple startup/shutdown hooks to init audit logger
 @app.on_event("startup")
